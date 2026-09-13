@@ -20,8 +20,8 @@ export function MoodOption({ illustration, label, mood = 'neutral', selected = f
 
 const styles = StyleSheet.create({
   check: { position: 'absolute', right: spacing.xs, top: spacing.xs },
-  icon: { alignItems: 'center', height: 32, justifyContent: 'center' },
-  label: { minHeight: 30 },
-  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, flex: 1, flexBasis: 0, gap: spacing.xs, justifyContent: 'center', minHeight: 86, minWidth: 0, paddingHorizontal: spacing.xs, paddingVertical: spacing.sm },
+  icon: { alignItems: 'center', height: 28, justifyContent: 'center' },
+  label: { minHeight: 18 },
+  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, flex: 1, flexBasis: 0, gap: spacing.xs, justifyContent: 'center', minHeight: 68, minWidth: 0, paddingHorizontal: spacing.xs, paddingVertical: spacing.sm },
   pressed: { opacity: 0.72 },
 });

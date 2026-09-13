@@ -33,7 +33,7 @@ export function FlowOption({ accessibilityLabel, disabled, label, level, selecte
 }
 
 const styles = StyleSheet.create({
-  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, gap: spacing.xs, justifyContent: 'center', minHeight: 86, paddingHorizontal: spacing.xs, paddingVertical: spacing.sm },
+  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, gap: spacing.xs, justifyContent: 'center', minHeight: 68, paddingHorizontal: spacing.xs, paddingVertical: spacing.sm },
   selected: { backgroundColor: colors.surface.soft, borderColor: colors.brand.action, borderWidth: 1.5 },
   disabled: { opacity: 0.5 },
   pressed: { opacity: 0.76 },

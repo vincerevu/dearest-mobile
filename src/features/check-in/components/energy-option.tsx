@@ -28,7 +28,7 @@ export function EnergyOption({ accessibilityLabel, disabled, label, level, selec
 }
 
 const styles = StyleSheet.create({
-  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, flex: 1, gap: spacing.xs, minHeight: 72, justifyContent: 'center', padding: spacing.sm },
+  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, flex: 1, gap: spacing.xs, minHeight: 64, justifyContent: 'center', padding: spacing.sm },
   selected: { backgroundColor: colors.surface.soft, borderColor: colors.brand.action, borderWidth: 1.5 },
   disabled: { opacity: 0.5 },
   pressed: { opacity: 0.76 },

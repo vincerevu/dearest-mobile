@@ -33,6 +33,6 @@ export function CalendarScreen({ title = 'Lịch' }: { title?: string }) {
   </View></Screen>;
 }
 
-const moodLabel = (value: string) => ({ happy: 'Vui', irritated: 'Cáu nhẹ', neutral: 'Bình thường', sad: 'Hơi buồn', tired: 'Mệt' } as Record<string, string>)[value] ?? value;
+const moodLabel = (value: string) => ({ happy: 'Vui', irritated: 'Cáu nhẹ', neutral: 'Ổn', sad: 'Hơi buồn', tired: 'Mệt' } as Record<string, string>)[value] ?? value;
 const energyLabel = (value: string) => ({ good: 'Tốt', low: 'Thấp', medium: 'Trung bình' } as Record<string, string>)[value] ?? value;
 const styles = { metric: { alignItems: 'center', flexDirection: 'row', gap: spacing.sm }, stack: { gap: spacing.lg }, summary: { gap: spacing.sm, paddingVertical: spacing.lg } } as const;

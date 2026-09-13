@@ -18,7 +18,7 @@ export function buildPartnerSnapshot(permissions: PartnerSharingPermissions): Pa
   if (permissions.lifeStage || permissions.cyclePhase) snapshot.journey = { lifeStage: 'cycle', cycleDay: permissions.cyclePhase ? 25 : undefined, cyclePhase: permissions.cyclePhase ? 'Cuối chu kỳ' : undefined };
   if (permissions.nextPeriodPrediction) snapshot.upcoming = [{ type: 'period', title: 'Có thể bắt đầu khoảng 3 ngày nữa', prediction: true }];
   if (permissions.energy) snapshot.sharedState = { ...snapshot.sharedState, energy: 'Thấp' };
-  if (permissions.mood) snapshot.sharedState = { ...snapshot.sharedState, mood: 'Bình thường' };
+  if (permissions.mood) snapshot.sharedState = { ...snapshot.sharedState, mood: 'Ổn' };
   if (permissions.symptoms) snapshot.sharedState = { ...snapshot.sharedState, symptoms: ['Mệt'] };
   if (permissions.supportHints) snapshot.supportHints = [{ id: 'small-help', title: 'Chủ động giúp một việc nhỏ', description: 'An có thể cần thêm một chút thời gian nghỉ hôm nay.' }];
   return snapshot;
