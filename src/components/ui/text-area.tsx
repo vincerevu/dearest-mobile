@@ -1,7 +1,7 @@
 import type { TextInputProps } from 'react-native';
 import * as React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
-import { colors, radius, spacing } from '@/design-system/tokens';
+import { colors, spacing } from '@/design-system/tokens';
 import { AppText } from './app-text';
 
 type TextAreaProps = TextInputProps & { label?: string; error?: string; helper?: string };

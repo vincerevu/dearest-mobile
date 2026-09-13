@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import { AppText } from './app-text';
 import { colors, spacing } from '@/design-system/tokens';
+import { AppText } from './app-text';
 
 type SwitchRowProps = { label: string; description?: string; value: boolean; disabled?: boolean; onValueChange: (value: boolean) => void };
 

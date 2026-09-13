@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextInput, StyleSheet, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 import { colors, radius, spacing } from '@/design-system/tokens';
 import { formatDateInput, parseDateInput } from '@/lib/date-input';
@@ -16,10 +16,12 @@ export function parseDate(value?: string) {
 }
 
 export function DateField({ accessibilityLabel, label, onChange, value }: { accessibilityLabel: string; label: string; value?: string; onChange: (value: string) => void }) {
-  return <View style={styles.container}>
-    <AppText style={styles.label} variant="label">{label}</AppText>
-    <TextInput accessibilityLabel={accessibilityLabel} keyboardType="number-pad" maxLength={10} placeholder="DD MM YY" placeholderTextColor={colors.text.muted} style={styles.field} value={formatDateInput(value ?? '')} onChangeText={nextValue => onChange(formatDateInput(nextValue))} />
-  </View>;
+  return (
+    <View style={styles.container}>
+      <AppText style={styles.label} variant="label">{label}</AppText>
+      <TextInput accessibilityLabel={accessibilityLabel} keyboardType="number-pad" maxLength={10} placeholder="DD MM YY" placeholderTextColor={colors.text.muted} style={styles.field} value={formatDateInput(value ?? '')} onChangeText={nextValue => onChange(formatDateInput(nextValue))} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

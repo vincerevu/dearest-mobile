@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { colors, radius, shadows, spacing } from '@/design-system/tokens';
 import { AppText } from './app-text';
 import { IconButton } from './icon-button';
-import { colors, radius, shadows, spacing } from '@/design-system/tokens';
 
 type BottomSheetProps = PropsWithChildren<{
   visible: boolean;

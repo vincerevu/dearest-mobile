@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { spacing } from '@/design-system/tokens';
 import { AppText } from './app-text';
 import { Card } from './card';
-import { spacing } from '@/design-system/tokens';
 
 type HealthSafetyNoticeProps = { title: string; message: string; icon?: ReactNode };
 

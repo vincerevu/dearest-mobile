@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import type { PressableProps, StyleProp, ViewStyle } from 'react-native';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Pressable, StyleSheet } from 'react-native';
 import { colors, radius } from '@/design-system/tokens';
 

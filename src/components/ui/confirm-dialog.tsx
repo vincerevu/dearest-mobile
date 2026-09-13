@@ -1,8 +1,8 @@
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { spacing } from '@/design-system/tokens';
 import { AppText } from './app-text';
 import { Button } from './button';
 import { Card } from './card';
-import { spacing } from '@/design-system/tokens';
 
 type ConfirmDialogProps = { visible: boolean; title: string; message: string; confirmLabel: string; destructive?: boolean; loading?: boolean; onCancel: () => void; onConfirm: () => void };
 

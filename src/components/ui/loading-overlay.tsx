@@ -1,6 +1,6 @@
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { AppText } from './app-text';
 import { colors, radius, spacing } from '@/design-system/tokens';
+import { AppText } from './app-text';
 
 export function LoadingOverlay({ label = 'Đang lưu...' }: { label?: string }) {
   return (

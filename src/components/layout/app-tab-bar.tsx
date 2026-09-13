@@ -30,7 +30,10 @@ export function AppTabBar({ onChange, tabs, value }: AppTabBarProps) {
             style={({ pressed }) => [styles.tab, pressed && styles.pressed]}
             onPress={() => onChange(tab.key)}
           >
-            <View style={styles.icon}>{tab.icon(active)}{tab.badge ? <View accessibilityLabel="Có thông báo chưa đọc" style={styles.badge} /> : null}</View>
+            <View style={styles.icon}>
+              {tab.icon(active)}
+              {tab.badge ? <View accessibilityLabel="Có thông báo chưa đọc" style={styles.badge} /> : null}
+            </View>
             <AppText adjustsFontSizeToFit color={active ? 'brand' : 'muted'} minimumFontScale={0.72} numberOfLines={1} style={styles.label} variant="label">{tab.label}</AppText>
           </Pressable>
         );
@@ -41,7 +44,12 @@ export function AppTabBar({ onChange, tabs, value }: AppTabBarProps) {
 
 export const BottomTabBar = AppTabBar;
 export function BottomTabItem({ active, icon, label, onPress }: { active: boolean; icon: ReactNode; label: string; onPress: () => void }) {
-  return <Pressable accessibilityLabel={label} accessibilityRole="tab" accessibilityState={{ selected: active }} style={styles.tab} onPress={onPress}><View style={styles.icon}>{icon}</View><AppText adjustsFontSizeToFit color={active ? 'brand' : 'muted'} minimumFontScale={0.72} numberOfLines={1} style={styles.label} variant="label">{label}</AppText></Pressable>;
+  return (
+    <Pressable accessibilityLabel={label} accessibilityRole="tab" accessibilityState={{ selected: active }} style={styles.tab} onPress={onPress}>
+      <View style={styles.icon}>{icon}</View>
+      <AppText adjustsFontSizeToFit color={active ? 'brand' : 'muted'} minimumFontScale={0.72} numberOfLines={1} style={styles.label} variant="label">{label}</AppText>
+    </Pressable>
+  );
 }
 
 const styles = StyleSheet.create({

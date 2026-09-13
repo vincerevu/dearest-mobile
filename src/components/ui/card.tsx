@@ -14,7 +14,8 @@ type CardProps = PropsWithChildren<{
 
 export function Card({ accessibilityLabel, children, onPress, padding = 'md', style, testID, variant = 'default' }: CardProps) {
   const cardStyle = [styles.base, styles[variant], paddingStyles[padding], style];
-  if (onPress) return <Pressable accessibilityLabel={accessibilityLabel} accessibilityRole="button" style={({ pressed }) => [cardStyle, pressed && styles.pressed]} testID={testID} onPress={onPress}>{children}</Pressable>;
+  if (onPress)
+    return <Pressable accessibilityLabel={accessibilityLabel} accessibilityRole="button" style={({ pressed }) => [cardStyle, pressed && styles.pressed]} testID={testID} onPress={onPress}>{children}</Pressable>;
   return <View testID={testID} style={cardStyle}>{children}</View>;
 }
 

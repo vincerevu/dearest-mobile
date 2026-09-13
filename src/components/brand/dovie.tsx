@@ -1,7 +1,7 @@
 import type { ImageSourcePropType } from 'react-native';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import Animated, { Easing, ReduceMotion, cancelAnimation, useAnimatedStyle, useReducedMotion, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
+import Animated, { cancelAnimation, Easing, ReduceMotion, useAnimatedStyle, useReducedMotion, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
 import { Image } from '@/components/ui';
 
 export type DoviePose = 'default' | 'welcome' | 'listening' | 'checkIn' | 'care' | 'encourage' | 'celebrate' | 'thinking' | 'rest' | 'privacy';
@@ -61,7 +61,8 @@ function MascotImage<T extends string>({ accessibilityLabel = 'Dovie', decorativ
     translateY.set(0);
     scale.set(1);
 
-    if (reduceMotion || !motion) return;
+    if (reduceMotion || !motion)
+      return;
 
     if (motion === 'celebrate') {
       scale.set(withSequence(
@@ -72,7 +73,8 @@ function MascotImage<T extends string>({ accessibilityLabel = 'Dovie', decorativ
         withTiming(-8, { duration: 160, easing: Easing.bezier(0.23, 1, 0.32, 1), reduceMotion: ReduceMotion.System }),
         withTiming(0, { duration: 240, easing: Easing.bezier(0.23, 1, 0.32, 1), reduceMotion: ReduceMotion.System }),
       ));
-    } else {
+    }
+    else {
       const distance = motion === 'typing' ? 2 : 4;
       const duration = motion === 'typing' ? 650 : 1800;
       translateY.set(withRepeat(
@@ -94,13 +96,17 @@ function MascotImage<T extends string>({ accessibilityLabel = 'Dovie', decorativ
     transform: [{ translateY: translateY.get() }, { scale: scale.get() }],
   }));
 
-  return <Animated.View style={animatedStyle}><Image
-      accessible={!decorative}
-      accessibilityLabel={decorative ? undefined : accessibilityLabel}
-      contentFit="contain"
-      source={source}
-      style={[styles.image, size ? { height: size, width: size } : styles.flexible]}
-    /></Animated.View>;
+  return (
+    <Animated.View style={animatedStyle}>
+      <Image
+        accessible={!decorative}
+        accessibilityLabel={decorative ? undefined : accessibilityLabel}
+        contentFit="contain"
+        source={source}
+        style={[styles.image, size ? { height: size, width: size } : styles.flexible]}
+      />
+    </Animated.View>
+  );
 }
 
 export function Dovie({ pose = 'default', ...props }: Omit<DovieImageProps<DoviePose>, 'variant'> & { pose?: DoviePose }) {
