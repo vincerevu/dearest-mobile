@@ -1,3 +1,4 @@
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { StyleSheet, View } from 'react-native';
 import { Dovie } from '@/components/brand';
 import { AppText, Badge, Card } from '@/components/ui';
@@ -9,7 +10,7 @@ export function CyclePreviewCard({ daysUntilPeriod = 5 }: { daysUntilPeriod?: nu
 }
 
 export function FeaturePreviewCard({ description, title }: { title: string; description: string }) {
-  return <Card><View style={styles.copy}><AppText variant="headingMd">{title}</AppText><AppText color="secondary">{description}</AppText></View></Card>;
+  return <View style={styles.feature}><MaterialCommunityIcons color={colors.navigation.icon} name="shield-check-outline" size={24} /><View style={styles.copy}><AppText variant="headingMd">{title}</AppText><AppText color="secondary">{description}</AppText></View></View>;
 }
 
 export function KnowledgePreviewCard({ category, readTime, title }: { title: string; category: string; readTime?: string }) {
@@ -20,4 +21,5 @@ const styles = StyleSheet.create({
   copy: { flex: 1, gap: spacing.xs },
   cycle: { alignItems: 'center', flexDirection: 'row', gap: spacing.md },
   demo: { color: colors.brand.primary },
+  feature: { alignItems: 'center', borderBottomColor: colors.border.soft, borderBottomWidth: StyleSheet.hairlineWidth, flexDirection: 'row', gap: spacing.md, minHeight: 76, paddingVertical: spacing.sm },
 });

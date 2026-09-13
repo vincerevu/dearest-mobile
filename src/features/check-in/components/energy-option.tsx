@@ -28,8 +28,8 @@ export function EnergyOption({ accessibilityLabel, disabled, label, level, selec
 }
 
 const styles = StyleSheet.create({
-  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: '#EEE7E8', borderRadius: 14, borderWidth: 1, flex: 1, gap: spacing.xs, minHeight: 60, justifyContent: 'center', padding: spacing.sm },
-  selected: { backgroundColor: '#FFF0F3', borderColor: colors.brand.action, borderWidth: 1.5 },
+  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, flex: 1, gap: spacing.xs, minHeight: 72, justifyContent: 'center', padding: spacing.sm },
+  selected: { backgroundColor: colors.surface.soft, borderColor: colors.brand.action, borderWidth: 1.5 },
   disabled: { opacity: 0.5 },
   pressed: { opacity: 0.76 },
   bars: { alignItems: 'flex-end', flexDirection: 'row', gap: 3, height: 24 },

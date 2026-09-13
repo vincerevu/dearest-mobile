@@ -1,7 +1,8 @@
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { StyleSheet, View } from 'react-native';
 import { AppText, Badge, Card, Chip, HealthSafetyNotice } from '@/components/ui';
 import { ContextSourceBadge, ModeHeroCard, ProgressSummaryCard, TimelineCard, type TimelineItem } from '@/components/future-shared';
-import { spacing } from '@/design-system/tokens';
+import { colors, spacing } from '@/design-system/tokens';
 
 export function TrimesterBadge({ trimester }: { trimester: 1 | 2 | 3 }) { return <Badge label={`Tam cá nguyệt ${trimester}`} tone="predicted" />; }
 export function PregnancyWeekCard({ week, trimester }: { week?: number; trimester?: 1 | 2 | 3 }) { return <Card variant="soft"><View style={styles.stack}><AppText color="brand" variant="label">Hành trình mang thai</AppText><AppText variant="headingLg">{week ? `Tuần ${week}` : 'Chưa xác định tuần'}</AppText>{trimester ? <TrimesterBadge trimester={trimester} /> : null}<ContextSourceBadge source="system_calculated" /></View></Card>; }
@@ -14,7 +15,7 @@ export function AppointmentCard({ dateLabel, provider, title }: { title: string;
 export function AppointmentTimeline({ items }: { items: TimelineItem[] }) { return <TimelineCard items={items} title="Lịch hẹn" />; }
 export function PregnancySafetyCard({ message, title = 'Khi nào nên tìm hỗ trợ' }: { title?: string; message: string }) { return <HealthSafetyNotice message={message} title={title} />; }
 export function BabyDevelopmentCard({ description, week }: { week?: number; description: string }) { return <Card variant="soft"><View style={styles.stack}><AppText variant="headingMd">Sự phát triển của bé{week ? ` · tuần ${week}` : ''}</AppText><AppText color="secondary">{description}</AppText><AppText color="muted" variant="label">Nội dung tham khảo đã được biên tập.</AppText></View></Card>; }
-export function BabySizeIllustration({ accessibilityLabel = 'Minh họa kích thước em bé', caption }: { caption?: string; accessibilityLabel?: string }) { return <View accessibilityLabel={accessibilityLabel} accessibilityRole="image" style={styles.illustration}><AppText variant="headingLg">♡</AppText>{caption ? <AppText color="secondary" variant="label">{caption}</AppText> : null}</View>; }
+export function BabySizeIllustration({ accessibilityLabel = 'Minh họa kích thước em bé', caption }: { caption?: string; accessibilityLabel?: string }) { return <View accessibilityLabel={accessibilityLabel} accessibilityRole="image" style={styles.illustration}><MaterialCommunityIcons color={colors.brand.primary} name="heart-outline" size={36} />{caption ? <AppText color="secondary" variant="label">{caption}</AppText> : null}</View>; }
 export function DoctorQuestionCard({ answered = false, question, onPress }: { question: string; answered?: boolean; onPress?: () => void }) { return <Card><View style={styles.stack}><AppText variant="label">{question}</AppText><AppText color={answered ? 'brand' : 'muted'} variant="label">{answered ? 'Đã trao đổi' : 'Để hỏi trong lần hẹn tới'}</AppText>{onPress ? <Chip label="Xem chi tiết" onPress={onPress} /> : null}</View></Card>; }
 export function DoctorQuestionList({ questions }: { questions: { id: string; question: string; answered?: boolean }[] }) { return <View style={styles.stack}>{questions.map(item => <DoctorQuestionCard key={item.id} answered={item.answered} question={item.question} />)}</View>; }
 export function DoviePregnancyCard({ message, onPress }: { message: string; onPress?: () => void }) { return <ModeHeroCard actionLabel={onPress ? 'Trò chuyện' : undefined} description={message} eyebrow="Dovie" title="Mình ở đây cùng bạn" onAction={onPress} />; }

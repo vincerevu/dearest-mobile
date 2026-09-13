@@ -1,3 +1,4 @@
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import type { ReactNode } from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
@@ -64,7 +65,7 @@ export function ProgressSummaryCard({ current, label, progress, secondaryLabel, 
 export function ChecklistItem({ item, onToggle }: { item: ChecklistItemModel; onToggle?: (id: string, completed: boolean) => void }) {
   return (
     <Pressable accessibilityLabel={item.title} accessibilityRole="checkbox" accessibilityState={{ checked: item.completed, disabled: item.disabled }} disabled={item.disabled} style={({ pressed }) => [styles.checkItem, item.completed && styles.completed, pressed && !item.disabled && styles.pressed]} onPress={() => onToggle?.(item.id, !item.completed)}>
-      <View style={[styles.check, item.completed && styles.checkDone]}><AppText color="inverse" variant="label">{item.completed ? '✓' : ''}</AppText></View>
+      <View style={[styles.check, item.completed && styles.checkDone]}>{item.completed ? <MaterialCommunityIcons color={colors.text.inverse} name="check" size={16} /> : null}</View>
       <View style={styles.copy}>
         <AppText style={item.completed ? styles.struck : undefined} variant="label">{item.title}</AppText>
         {item.description ? <AppText color="secondary" variant="label">{item.description}</AppText> : null}
@@ -89,7 +90,7 @@ export function ChecklistGroup({ collapsible = false, description, items, onTogg
             <AppText variant="headingMd">{title}</AppText>
             {description ? <AppText color="secondary" variant="label">{description}</AppText> : null}
           </View>
-          {collapsible ? <IconButton accessibilityLabel="Thu gọn danh sách" icon={<AppText>⌃</AppText>} onPress={() => {}} /> : null}
+          {collapsible ? <IconButton accessibilityLabel="Thu gọn danh sách" icon={<MaterialCommunityIcons color={colors.navigation.icon} name="chevron-up" size={22} />} onPress={() => {}} /> : null}
         </View>
         {items.map(item => <ChecklistItem key={item.id} item={item} onToggle={onToggleItem} />)}
       </View>

@@ -1,7 +1,8 @@
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import type { PressableProps, StyleProp, ViewStyle } from 'react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui';
-import { colors, radius, spacing } from '@/design-system/tokens';
+import { colors, spacing } from '@/design-system/tokens';
 
 type FlowOptionProps = Omit<PressableProps, 'children' | 'style'> & {
   label: string;
@@ -12,6 +13,8 @@ type FlowOptionProps = Omit<PressableProps, 'children' | 'style'> & {
 
 /** Flow is optional. Its visual strength never represents medical severity. */
 export function FlowOption({ accessibilityLabel, disabled, label, level, selected = false, style, ...props }: FlowOptionProps) {
+  const dropCount = level === 4 ? 4 : 3;
+
   return (
     <Pressable
       accessibilityLabel={accessibilityLabel ?? label}
@@ -22,7 +25,7 @@ export function FlowOption({ accessibilityLabel, disabled, label, level, selecte
       {...props}
     >
       <View accessibilityElementsHidden style={styles.drops}>
-        {[1, 2, 3, 4].map(drop => <View key={drop} style={[styles.drop, drop <= level && styles.dropActive]} />)}
+        {Array.from({ length: dropCount }, (_, index) => index + 1).map(drop => <MaterialCommunityIcons key={drop} color={drop <= level ? colors.brand.action : colors.brand.soft} name="water" size={12} />)}
       </View>
       <AppText align="center" color={selected ? 'brand' : 'body'} numberOfLines={2} variant="label">{label}</AppText>
     </Pressable>
@@ -30,11 +33,9 @@ export function FlowOption({ accessibilityLabel, disabled, label, level, selecte
 }
 
 const styles = StyleSheet.create({
-  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: '#EEE7E8', borderRadius: 14, borderWidth: 1, gap: spacing.xs, justifyContent: 'center', minHeight: 64, paddingHorizontal: spacing.xs, paddingVertical: spacing.sm },
-  selected: { backgroundColor: '#FFF0F3', borderColor: colors.brand.action, borderWidth: 1.5 },
+  option: { alignItems: 'center', backgroundColor: colors.surface.card, borderColor: colors.border.default, borderRadius: 14, borderWidth: 1, gap: spacing.xs, justifyContent: 'center', minHeight: 86, paddingHorizontal: spacing.xs, paddingVertical: spacing.sm },
+  selected: { backgroundColor: colors.surface.soft, borderColor: colors.brand.action, borderWidth: 1.5 },
   disabled: { opacity: 0.5 },
   pressed: { opacity: 0.76 },
-  drops: { flexDirection: 'row', gap: 3 },
-  drop: { backgroundColor: colors.border.default, borderRadius: radius.pill, height: 12, width: 6 },
-  dropActive: { backgroundColor: colors.brand.rose },
+  drops: { flexDirection: 'row', gap: 1 },
 });

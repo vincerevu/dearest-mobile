@@ -1,3 +1,4 @@
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useRouter } from 'expo-router';
 import * as React from 'react';
 import { View } from 'react-native';
@@ -5,7 +6,7 @@ import { View } from 'react-native';
 import { DovieMicro } from '@/components/brand';
 import { Screen, ScreenHeader } from '@/components/layout';
 import { AppText, EmptyState, TextAction } from '@/components/ui';
-import { spacing } from '@/design-system/tokens';
+import { colors, spacing } from '@/design-system/tokens';
 import { todayKey, useCoreStore } from '@/features/core/use-core-store';
 import { usePreferencesStore } from '@/features/management/use-preferences-store';
 import { CalendarLegend, CycleCalendar, MonthNavigator } from './components';
@@ -28,10 +29,10 @@ export function CalendarScreen({ title = 'Lịch' }: { title?: string }) {
     <MonthNavigator label={formatMonth(month)} onNext={() => setMonth(value => addMonths(value, 1))} onPrevious={() => setMonth(value => addMonths(value, -1))} />
     <CycleCalendar days={buildCalendarCells(month, cycle, checkIns, selectedDate, showPredictions)} onSelectDay={cell => setSelectedDate(cell.dateKey)} />
     <CalendarLegend />
-    <View accessibilityLabel={selectedCheckIn ? 'Chỉnh sửa check-in' : 'Ghi nhận ngày này'} style={styles.summary}><AppText color="muted" variant="label">{formatCalendarDate(selectedDate)}</AppText><AppText variant="headingMd">{cycleDay ? `Ngày ${cycleDay} của chu kỳ` : 'Ngoài dữ liệu chu kỳ'}</AppText>{selectedCheckIn ? <><AppText>🙂 {moodLabel(selectedCheckIn.mood)}</AppText><AppText>⚡ Năng lượng {energyLabel(selectedCheckIn.energy)}</AppText>{selectedCheckIn.symptoms.length ? <AppText color="secondary">○ {selectedCheckIn.symptoms.join(', ')}</AppText> : null}</> : <AppText color="secondary">Chưa có check-in cho ngày này.</AppText>}<TextAction label={selectedCheckIn ? 'Xem check-in' : 'Ghi nhận ngày này'} onPress={() => router.push(`/check-in/${selectedDate}`)} /></View>
+    <View accessibilityLabel={selectedCheckIn ? 'Chỉnh sửa check-in' : 'Ghi nhận ngày này'} style={styles.summary}><AppText color="muted" variant="label">{formatCalendarDate(selectedDate)}</AppText><AppText variant="headingMd">{cycleDay ? `Ngày ${cycleDay} của chu kỳ` : 'Ngoài dữ liệu chu kỳ'}</AppText>{selectedCheckIn ? <><View style={styles.metric}><MaterialCommunityIcons color={colors.mood.neutral.accent} name="emoticon-neutral-outline" size={20} /><AppText>{moodLabel(selectedCheckIn.mood)}</AppText></View><View style={styles.metric}><MaterialCommunityIcons color={colors.energy.medium} name="lightning-bolt-outline" size={20} /><AppText>Năng lượng {energyLabel(selectedCheckIn.energy)}</AppText></View>{selectedCheckIn.symptoms.length ? <View style={styles.metric}><MaterialCommunityIcons color={colors.text.secondary} name="medical-bag" size={19} /><AppText color="secondary">{selectedCheckIn.symptoms.join(', ')}</AppText></View> : null}</> : <AppText color="secondary">Chưa có check-in cho ngày này.</AppText>}<TextAction label={selectedCheckIn ? 'Xem check-in' : 'Ghi nhận ngày này'} onPress={() => router.push(`/check-in/${selectedDate}`)} /></View>
   </View></Screen>;
 }
 
 const moodLabel = (value: string) => ({ happy: 'Vui', irritated: 'Cáu nhẹ', neutral: 'Bình thường', sad: 'Hơi buồn', tired: 'Mệt' } as Record<string, string>)[value] ?? value;
 const energyLabel = (value: string) => ({ good: 'Tốt', low: 'Thấp', medium: 'Trung bình' } as Record<string, string>)[value] ?? value;
-const styles = { stack: { gap: spacing.lg }, summary: { gap: spacing.sm, paddingVertical: spacing.lg } } as const;
+const styles = { metric: { alignItems: 'center', flexDirection: 'row', gap: spacing.sm }, stack: { gap: spacing.lg }, summary: { gap: spacing.sm, paddingVertical: spacing.lg } } as const;
