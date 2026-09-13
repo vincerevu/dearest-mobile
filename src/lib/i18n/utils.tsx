@@ -3,10 +3,9 @@ import type { Language, resources } from './resources';
 import type { RecursiveKeyOf } from './types';
 import i18n from 'i18next';
 import memoize from 'lodash.memoize';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { I18nManager, NativeModules, Platform } from 'react-native';
 
-import { useMMKVString } from 'react-native-mmkv';
 import RNRestart from 'react-native-restart';
 import { storage } from '../storage';
 
@@ -15,7 +14,10 @@ export type TxKeyPath = RecursiveKeyOf<DefaultLocale>;
 
 export const LOCAL = 'local';
 
-export const getLanguage = () => storage.getString(LOCAL); // 'Marc' getItem<Language | undefined>(LOCAL);
+export const getLanguage = (): Language | undefined => {
+  const language = storage.getString(LOCAL);
+  return language === 'en' || language === 'vi' ? language : undefined;
+};
 
 export const translate = memoize(
   (key: TxKeyPath, options = undefined) =>
@@ -26,12 +28,8 @@ export const translate = memoize(
 
 export function changeLanguage(lang: Language) {
   i18n.changeLanguage(lang);
-  if (lang === 'ar') {
-    I18nManager.forceRTL(true);
-  }
-  else {
-    I18nManager.forceRTL(false);
-  }
+  // Both supported languages are left-to-right.
+  I18nManager.forceRTL(false);
   if (Platform.OS === 'ios' || Platform.OS === 'android') {
     if (__DEV__)
       NativeModules.DevSettings.reload();
@@ -43,10 +41,11 @@ export function changeLanguage(lang: Language) {
 }
 
 export function useSelectedLanguage() {
-  const [language, setLang] = useMMKVString(LOCAL);
+  const [language, setLang] = useState<Language>(() => getLanguage() ?? (i18n.language === 'vi' ? 'vi' : 'en'));
 
   const setLanguage = useCallback(
     (lang: Language) => {
+      storage.set(LOCAL, lang);
       setLang(lang);
       if (lang !== undefined)
         changeLanguage(lang as Language);

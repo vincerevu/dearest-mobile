@@ -4,45 +4,46 @@ import type { VariantProps } from 'tailwind-variants';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, Text } from 'react-native';
 import { tv } from 'tailwind-variants';
+import { colors } from '@/design-system/tokens';
 
 const button = tv({
   slots: {
-    container: 'my-2 flex flex-row items-center justify-center rounded-md px-4',
-    label: 'font-inter text-base font-semibold',
+    container: 'my-2 flex min-h-12 flex-row items-center justify-center rounded-full px-6',
+    label: 'font-quicksand text-base font-semibold',
     indicator: 'h-6 text-white',
   },
 
   variants: {
     variant: {
       default: {
-        container: 'bg-black dark:bg-white',
-        label: 'text-white dark:text-black',
-        indicator: 'text-white dark:text-black',
-      },
-      secondary: {
-        container: 'bg-primary-600',
-        label: 'text-secondary-600',
+        container: 'bg-primary-500',
+        label: 'text-white',
         indicator: 'text-white',
       },
+      secondary: {
+        container: 'bg-primary-50',
+        label: 'text-primary-700',
+        indicator: 'text-primary-700',
+      },
       outline: {
-        container: 'border border-neutral-400',
-        label: 'text-black dark:text-neutral-100',
-        indicator: 'text-black dark:text-neutral-100',
+        container: 'border border-primary-500 bg-white',
+        label: 'text-primary-700',
+        indicator: 'text-primary-700',
       },
       destructive: {
-        container: 'bg-red-600',
+        container: 'bg-danger-600',
         label: 'text-white',
         indicator: 'text-white',
       },
       ghost: {
         container: 'bg-transparent',
-        label: 'text-black underline dark:text-white',
-        indicator: 'text-black dark:text-white',
+        label: 'text-primary-700 underline',
+        indicator: 'text-primary-700',
       },
       link: {
         container: 'bg-transparent',
-        label: 'text-black',
-        indicator: 'text-black',
+        label: 'text-primary-700',
+        indicator: 'text-primary-700',
       },
     },
     size: {
@@ -63,9 +64,9 @@ const button = tv({
     },
     disabled: {
       true: {
-        container: 'bg-neutral-300 dark:bg-neutral-300',
-        label: 'text-neutral-600 dark:text-neutral-600',
-        indicator: 'text-neutral-400 dark:text-neutral-400',
+        container: 'bg-neutral-200',
+        label: 'text-neutral-600',
+        indicator: 'text-neutral-500',
       },
     },
     fullWidth: {
@@ -98,6 +99,11 @@ export function Button({ ref, label: text, loading = false, variant = 'default',
     () => button({ variant, disabled, size }),
     [variant, disabled, size],
   );
+  const indicatorColor = disabled
+    ? colors.text.muted
+    : variant === 'default' || variant === 'destructive'
+      ? colors.text.inverse
+      : colors.brand.primary;
 
   return (
     <Pressable
@@ -116,6 +122,7 @@ export function Button({ ref, label: text, loading = false, variant = 'default',
               {loading
                 ? (
                     <ActivityIndicator
+                      color={indicatorColor}
                       size="small"
                       className={styles.indicator()}
                       testID={testID ? `${testID}-activity-indicator` : undefined}

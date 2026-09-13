@@ -1,5 +1,6 @@
 node_modules/
 .expo/
+.expo-*/
 dist/
 npm-debug.*
 *.jks
@@ -11,6 +12,13 @@ npm-debug.*
 web-build/
 yarn-error.log
 /coverage
+/artifacts/
+/emulator-*.png
+/android-current.png
+/account-*.png
+/login-current.png
+/.expo-role-icons.png
+/.expo-*.png
 # macOS
 .DS_Store
 /ios

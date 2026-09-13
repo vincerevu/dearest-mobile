@@ -113,6 +113,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
     'expo-localization',
     'expo-router',
+    ...(Env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME ? [['@react-native-google-signin/google-signin', { iosUrlScheme: Env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME }] as [string, { iosUrlScheme: string }]] : []),
     ['app-icon-badge', appIconBadgeConfig],
     ['react-native-edge-to-edge'],
   ],

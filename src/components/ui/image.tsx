@@ -13,7 +13,9 @@ const StyledImage = withUniwind(NImage);
 export function Image({
   style,
   className,
-  placeholder = 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
+  // Expo Image expects a hash placeholder as an ImageSource. Passing the raw
+  // string makes Android's Glide treat it as a URL and repeatedly fail to load.
+  placeholder = { blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4' },
   ...props
 }: ImgProps) {
   return (

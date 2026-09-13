@@ -1,0 +1,32 @@
+{
+  "name": "Dovie Asset Pack V1",
+  "style": "pastel kawaii deer mascot with flower and antlers",
+  "notes": [
+    "All PNG assets are packaged with standardized English filenames.",
+    "Intended folders: full poses, micro states, and avatar crops.",
+    "These assets were curated from the latest approved pastel style set."
+  ],
+  "full_poses": [
+    "dovie-default.png",
+    "dovie-welcome.png",
+    "dovie-listening.png",
+    "dovie-check-in.png",
+    "dovie-care.png",
+    "dovie-encourage.png",
+    "dovie-celebrate.png",
+    "dovie-thinking.png",
+    "dovie-rest.png",
+    "dovie-privacy.png"
+  ],
+  "micro_states": [
+    "dovie-typing.png",
+    "dovie-empty.png",
+    "dovie-gentle-alert.png"
+  ],
+  "avatars": [
+    "dovie-avatar-default.png",
+    "dovie-avatar-listening.png",
+    "dovie-avatar-care.png",
+    "dovie-avatar-rest.png"
+  ]
+}

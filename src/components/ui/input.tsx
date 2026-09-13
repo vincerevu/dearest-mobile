@@ -10,26 +10,26 @@ import { Text } from './text';
 const inputTv = tv({
   slots: {
     container: 'mb-2',
-    label: 'text-grey-100 mb-1 text-lg dark:text-neutral-100',
+    label: 'mb-1 text-lg text-primary-800 dark:text-primary-100',
     input:
-      'font-inter mt-0 rounded-xl border-[0.5px] border-neutral-300 bg-neutral-100 px-4 py-3 text-base/5 font-medium dark:border-neutral-700 dark:bg-neutral-800 dark:text-white',
+      'font-quicksand mt-0 rounded-xl border border-primary-200 bg-white px-4 py-3 text-base/5 font-medium text-neutral-900 dark:border-primary-700 dark:bg-neutral-800 dark:text-white',
   },
 
   variants: {
     focused: {
       true: {
-        input: 'border-neutral-400 dark:border-neutral-300',
+        input: 'border-2 border-primary-500 dark:border-primary-400',
       },
     },
     error: {
       true: {
-        input: 'border-danger-600',
+        input: 'border-2 border-danger-600',
         label: 'text-danger-600 dark:text-danger-600',
       },
     },
     disabled: {
       true: {
-        input: 'bg-neutral-200',
+        input: 'border-primary-100 bg-primary-50',
       },
     },
   },

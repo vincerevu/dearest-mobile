@@ -1,0 +1,16 @@
+import { StyleSheet, View } from 'react-native';
+import { AppText, Badge, Card, Chip } from '@/components/ui';
+import { ContextSourceBadge, ModeHeroCard, ProgressSummaryCard } from '@/components/future-shared';
+import { colors, spacing } from '@/design-system/tokens';
+
+export type PredictionConfidence = 'low' | 'medium' | 'high';
+const confidenceCopy: Record<PredictionConfidence, string> = { low: 'Dữ liệu còn ít', medium: 'Ước tính', high: 'Dữ liệu ổn định hơn' };
+export function PredictionConfidenceBadge({ confidence }: { confidence: PredictionConfidence }) { return <Badge label={confidenceCopy[confidence]} tone={confidence === 'low' ? 'aiInsight' : confidence === 'medium' ? 'predicted' : 'calculated'} />; }
+export function TTCPhaseCard({ confidence, cycleDay, fertileWindow, nextPeriod }: { cycleDay?: number; fertileWindow?: string; nextPeriod?: string; confidence: PredictionConfidence }) { return <Card variant="soft"><View style={styles.stack}><AppText variant="headingMd">Chuẩn bị thật nhẹ nhàng</AppText><AppText>Ngày chu kỳ {cycleDay ?? '—'}</AppText><AppText color="secondary">Cửa sổ ước tính: {fertileWindow ?? 'Chưa đủ dữ liệu'}</AppText><AppText color="secondary">Kỳ tiếp theo: {nextPeriod ?? 'Chưa ước tính được'}</AppText><PredictionConfidenceBadge confidence={confidence} /></View></Card>; }
+export function FertileWindowCard({ confidence, windowText }: { windowText?: string; confidence: PredictionConfidence }) { return <Card><View style={styles.stack}><AppText color="brand" variant="label">Cửa sổ ước tính</AppText><AppText variant="headingMd">{windowText ?? 'Chưa đủ dữ liệu để ước tính'}</AppText><AppText color="secondary">Thông tin này dựa trên dữ liệu hiện có và không phải dự đoán chắc chắn.</AppText><PredictionConfidenceBadge confidence={confidence} /><ContextSourceBadge source="predicted" /></View></Card>; }
+export function TTCHabitItem({ label, state, onPress }: { label: string; state: 'todo' | 'done' | 'skipped'; onPress: () => void }) { return <Chip label={`${state === 'done' ? '✓ ' : ''}${label}`} selected={state === 'done'} onPress={onPress} />; }
+export function TTCRoutineCard({ children, current, total }: { children: React.ReactNode; current: number; total: number }) { return <View style={styles.stack}><ProgressSummaryCard current={current} label="Thói quen hôm nay" progress={total ? current / total : 0} total={total} /><View style={styles.choices}>{children}</View></View>; }
+export function TTCCheckIn({ children }: { children: React.ReactNode }) { return <Card><View style={styles.stack}><AppText variant="headingMd">Check-in hôm nay</AppText><AppText color="secondary" variant="label">Chỉ ghi điều bạn muốn ghi nhận.</AppText>{children}</View></Card>; }
+export function PartnerPlanCard({ description, title = 'Kế hoạch cho hai người' }: { title?: string; description: string }) { return <ModeHeroCard description={description} eyebrow="Cùng chuẩn bị" title={title} />; }
+export function TTCInsightCard({ message }: { message: string }) { return <ModeHeroCard description={message} eyebrow="Gợi ý wellbeing" title="Cùng chăm cơ thể nhẹ nhàng" />; }
+const styles = StyleSheet.create({ choices: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }, stack: { gap: spacing.md } });
