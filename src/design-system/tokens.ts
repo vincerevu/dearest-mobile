@@ -17,6 +17,7 @@ export const colors = {
   },
   provenance: { actual: '#FCE5EA', calculated: '#F7EEF0', aiInsight: '#FFF0D9' },
   warning: { background: '#FFFAF0', border: '#F4CB77' },
+  navigation: { icon: '#737B80', chevron: '#A1A6AA', pressed: '#FFF4F5' },
   danger: '#D93654',
 } as const;
 

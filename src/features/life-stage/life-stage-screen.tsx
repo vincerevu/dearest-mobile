@@ -2,10 +2,10 @@ import { useRouter } from 'expo-router';
 import * as React from 'react';
 import { View } from 'react-native';
 import { Dovie } from '@/components/brand';
-import { Screen, ScreenHeader, SectionHeader } from '@/components/layout';
-import { AppText, Button, Card, ChecklistTaskRow, InlineActionLink } from '@/components/ui';
+import { Screen, ScreenHeader } from '@/components/layout';
+import { AppText, ChecklistTaskRow, DisclosureRow, SettingsListSection } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
-import { LifeStageSelector, LifeStageTransitionCard, TransitionConfirmationSheet } from './components';
+import { LifeStageSelector, LifeStageSummary, TransitionConfirmationSheet } from './components';
 import { type LifeStagePreference, usePreferencesStore } from '@/features/management/use-preferences-store';
 
 const stages: { stage: LifeStagePreference; title: string; description: string }[] = [
@@ -28,12 +28,12 @@ const planCopy: Record<LifeStagePreference, string> = {
 
 export function LifeStageScreen() {
   const router = useRouter(); const stage = usePreferencesStore(state => state.lifeStage); const current = stageCopy[stage];
-  return <Screen scroll><View style={{ gap: spacing.lg }}><ScreenHeader title="Hành trình của bạn" onBack={() => router.back()} /><Dovie decorative pose={current.pose} size={140} /><LifeStageTransitionCard description={current.description} stage={stage} title={current.title} /><SectionHeader title="Ưu tiên hiện tại" /><Card accessibilityLabel="Mở kế hoạch" variant="soft" onPress={() => router.push('/life-stage/plan')}><View style={{ gap: spacing.sm }}><AppText color="secondary">{planCopy[stage]}</AppText><InlineActionLink label="Mở kế hoạch" /></View></Card><Button label="Đổi hành trình" onPress={() => router.push('/life-stage/transition')} /></View></Screen>;
+  return <Screen scroll><View style={{ gap: spacing.xl }}><ScreenHeader title="Hành trình của bạn" onBack={() => router.back()} /><View style={{ alignItems: 'center' }}><Dovie decorative pose={current.pose} size={96} /></View><LifeStageSummary description={current.description} stage={stage} title={current.title} /><SettingsListSection title="ƯU TIÊN HIỆN TẠI"><DisclosureRow description={planCopy[stage]} title="Kế hoạch của bạn" onPress={() => router.push('/life-stage/plan')} /></SettingsListSection><SettingsListSection title="THIẾT LẬP"><DisclosureRow title="Đổi hành trình" onPress={() => router.push('/life-stage/transition')} /></SettingsListSection></View></Screen>;
 }
 
 export function LifeStageTransitionScreen() {
   const router = useRouter(); const saved = usePreferencesStore(state => state.lifeStage); const setLifeStage = usePreferencesStore(state => state.setLifeStage); const [selected, setSelected] = React.useState<LifeStagePreference>(saved); const next = stageCopy[selected];
-  return <Screen scroll><View style={{ gap: spacing.lg }}><ScreenHeader title="Đổi hành trình" onBack={() => router.back()} /><Dovie decorative pose={next.pose === 'default' ? 'encourage' : next.pose} size={140} /><AppText variant="headingMd">Bạn muốn Dovie đồng hành với điều gì lúc này?</AppText><AppText color="secondary">Nội dung hiển thị sẽ đổi theo lựa chọn này. Toàn bộ lịch sử chu kỳ, check-in và nhật ký của bạn vẫn được giữ nguyên.</AppText><LifeStageSelector stages={stages} value={selected} onChange={setSelected} /><TransitionConfirmationSheet title={next.title} onConfirm={() => { setLifeStage(selected); router.replace('/life-stage'); }} /></View></Screen>;
+  return <Screen scroll><View style={{ gap: spacing.xl }}><ScreenHeader title="Đổi hành trình" onBack={() => router.back()} /><View style={{ gap: spacing.sm }}><AppText variant="headingLg">Dovie nên đồng hành với điều gì lúc này?</AppText><AppText color="secondary">Nội dung sẽ đổi theo lựa chọn. Lịch sử chu kỳ, check-in và nhật ký vẫn được giữ nguyên.</AppText></View><LifeStageSelector stages={stages} value={selected} onChange={setSelected} /><TransitionConfirmationSheet title={next.title} onConfirm={() => { setLifeStage(selected); router.replace('/life-stage'); }} /></View></Screen>;
 }
 
 export function LifeStagePlanScreen() {

@@ -2,7 +2,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Dovie } from '@/components/brand';
-import { AppText, Card, InlineActionLink, SettingsListRow, SwitchRow } from '@/components/ui';
+import { AppText, Card, DisclosureRow, SettingsListRow, SwitchRow } from '@/components/ui';
 import { colors, radius, spacing } from '@/design-system/tokens';
 import type { PartnerSharedSnapshot, PartnerSharingPermissions } from '../domain/partner-shared-snapshot';
 
@@ -40,11 +40,11 @@ export function SharedContextCard({ snapshot }: { snapshot: PartnerSharedSnapsho
 export function PartnerPrivateState() { return <View style={styles.privateState}><AppText variant="headingMd">Thông tin hôm nay đang riêng tư</AppText><AppText color="secondary">Bạn vẫn có thể ở bên An bằng một điều rất đơn giản:</AppText><AppText>“Hôm nay cậu muốn mình giúp gì?”</AppText></View>; }
 
 export function PartnerSupportHintCard({ description, onPress, title }: { title: string; description: string; onPress: () => void }) {
-  return <Card accessibilityLabel={title} onPress={onPress}><View style={styles.hint}><AppText style={styles.hintTitle} variant="headingMd">{title}</AppText><AppText color="secondary">{description}</AppText><InlineActionLink label="Xem thêm" /></View></Card>;
+  return <DisclosureRow description={description} title={title} onPress={onPress} />;
 }
 
 export function PartnerKnowledgeCard({ onPress, readTime = '3 phút đọc', title }: { title: string; readTime?: string; onPress: () => void }) {
-  return <Pressable accessibilityLabel={title} accessibilityRole="button" style={({ pressed }) => [styles.knowledge, pressed && styles.pressed]} onPress={onPress}><View style={styles.flex}><AppText variant="label">{title}</AppText><AppText color="secondary" variant="label">{readTime}</AppText></View><MaterialCommunityIcons color="#E7A1AE" name="chevron-right" size={22} /></Pressable>;
+  return <Pressable accessibilityLabel={title} accessibilityRole="button" style={({ pressed }) => [styles.knowledge, pressed && styles.pressed]} onPress={onPress}><View style={styles.flex}><AppText variant="label">{title}</AppText><AppText color="secondary" variant="label">{readTime}</AppText></View><MaterialCommunityIcons color={colors.navigation.chevron} name="chevron-right" size={22} /></Pressable>;
 }
 
 export function PartnerTaskRow({ completed, description, onToggle, title }: { title: string; description: string; completed: boolean; onToggle: () => void }) {
@@ -61,7 +61,7 @@ export function PartnerPermissionSections({ permissions, onChange }: { permissio
 
 function PermissionSection({ children, title }: { title: string; children: ReactNode }) { return <View style={styles.permissionSection}><AppText color="muted" style={styles.sectionLabel} variant="label">{title}</AppText>{children}</View>; }
 function Benefit({ text }: { text: string }) { return <View style={styles.benefit}><MaterialCommunityIcons color={colors.brand.primary} name="check" size={20} /><AppText>{text}</AppText></View>; }
-function WorkspaceRow({ active, label, onPress }: { active: boolean; label: string; onPress: () => void }) { return <Pressable accessibilityLabel={label} accessibilityRole="button" style={styles.workspaceRow} onPress={onPress}><AppText color={active ? 'brand' : 'primary'} variant="label">{label}</AppText>{active ? <MaterialCommunityIcons color={colors.brand.primary} name="check" size={20} /> : <MaterialCommunityIcons color="#E7A1AE" name="chevron-right" size={20} />}</Pressable>; }
+function WorkspaceRow({ active, label, onPress }: { active: boolean; label: string; onPress: () => void }) { return <Pressable accessibilityLabel={label} accessibilityRole="button" style={styles.workspaceRow} onPress={onPress}><AppText color={active ? 'brand' : 'primary'} variant="label">{label}</AppText>{active ? <MaterialCommunityIcons color={colors.brand.primary} name="check" size={20} /> : <MaterialCommunityIcons color={colors.navigation.chevron} name="chevron-right" size={20} />}</Pressable>; }
 function SharedStateRow({ icon, label, value }: { icon: keyof typeof MaterialCommunityIcons.glyphMap; label: string; value: string }) { return <View style={styles.stateRow}><MaterialCommunityIcons color={colors.text.secondary} name={icon} size={20} /><AppText color="secondary" style={styles.flex}>{label}</AppText><AppText variant="label">{value}</AppText></View>; }
 const stageLabel = (stage: NonNullable<PartnerSharedSnapshot['journey']>['lifeStage']) => ({ cycle: 'Theo dõi chu kỳ', motherhood: 'Làm mẹ', postpartum: 'Sau sinh', pregnancy: 'Mang thai', ttc: 'Chuẩn bị mang thai' } as const)[stage];
 
@@ -76,8 +76,6 @@ const styles = StyleSheet.create({
   hero: { alignItems: 'center', gap: spacing.md },
   heroCopy: { gap: spacing.xs },
   heroTitle: { fontSize: 28, lineHeight: 34 },
-  hint: { gap: spacing.sm },
-  hintTitle: { fontSize: 21, lineHeight: 27 },
   knowledge: { alignItems: 'center', borderBottomColor: colors.border.soft, borderBottomWidth: StyleSheet.hairlineWidth, flexDirection: 'row', gap: spacing.md, minHeight: 64, paddingVertical: spacing.sm },
   locked: { alignItems: 'center', borderBottomColor: colors.border.soft, borderBottomWidth: StyleSheet.hairlineWidth, flexDirection: 'row', gap: spacing.md, minHeight: 60 },
   permissionSection: { gap: 0 },

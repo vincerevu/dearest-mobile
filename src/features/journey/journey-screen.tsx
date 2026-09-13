@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 import { Dovie } from '@/components/brand';
 import { Screen, ScreenHeader } from '@/components/layout';
-import { AppText, Card, InlineActionLink } from '@/components/ui';
+import { AppText, DisclosureRow, SettingsListSection } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
 import { CalendarScreen } from '@/features/cycle/calendar-screen';
 import { type LifeStagePreference, usePreferencesStore } from '@/features/management/use-preferences-store';
@@ -18,5 +18,5 @@ export function JourneyScreen() {
   const router = useRouter(); const stage = usePreferencesStore(state => state.lifeStage);
   if (stage === 'cycle') return <CalendarScreen title="Hành trình" />;
   const current = copy[stage];
-  return <Screen scroll><View style={{ gap: spacing.lg }}><ScreenHeader title="Hành trình" /><Dovie decorative pose={current.pose} size={132} /><Card variant="soft"><View style={{ gap: spacing.sm }}><AppText variant="headingMd">{current.title}</AppText><AppText color="secondary">{current.description}</AppText></View></Card><Card accessibilityLabel="Mở kế hoạch" onPress={() => router.push('/life-stage/plan')}><View style={{ gap: spacing.sm }}><AppText variant="headingMd">Kế hoạch của bạn</AppText><AppText color="secondary">Những việc nhẹ nhàng, phù hợp với hành trình hiện tại.</AppText><InlineActionLink label="Mở kế hoạch" /></View></Card><Card accessibilityLabel="Đổi giai đoạn hiện tại" onPress={() => router.push('/life-stage/transition')}><View style={{ gap: spacing.sm }}><AppText variant="headingMd">Giai đoạn hiện tại</AppText><AppText color="secondary">Bạn đang ở: {current.title.replace('Hành trình ', '')}</AppText><InlineActionLink label="Thay đổi giai đoạn" /></View></Card></View></Screen>;
+  return <Screen scroll><View style={{ gap: spacing.xl }}><ScreenHeader title="Hành trình" /><View style={{ alignItems: 'center' }}><Dovie decorative pose={current.pose} size={96} /></View><View style={{ gap: spacing.sm }}><AppText variant="headingLg">{current.title.replace('Hành trình ', '')}</AppText><AppText color="secondary">{current.description}</AppText></View><SettingsListSection title="SẮP TỚI"><DisclosureRow description="Những việc nhẹ nhàng, phù hợp với hành trình hiện tại." title="Kế hoạch của bạn" onPress={() => router.push('/life-stage/plan')} /></SettingsListSection><SettingsListSection title="GIAI ĐOẠN"><DisclosureRow description={`Bạn đang ở: ${current.title.replace('Hành trình ', '')}`} title="Thay đổi giai đoạn" onPress={() => router.push('/life-stage/transition')} /></SettingsListSection></View></Screen>;
 }

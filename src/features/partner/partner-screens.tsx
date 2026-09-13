@@ -2,7 +2,7 @@ import { Redirect, useRouter } from 'expo-router';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Screen, ScreenHeader } from '@/components/layout';
-import { AppText, Button, ConfirmDialog, InlineActionLink, Input, SettingsListRow, SettingsListSection } from '@/components/ui';
+import { AppText, Button, ConfirmDialog, Input, SettingsListRow, SettingsListSection, TextAction } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
 import { ConnectionRow, PartnerHero, PartnerPermissionSections, PartnerProfileCard, PrivacyBenefitList, PrivacyLockedRow } from './components';
 import { usePartnerStore } from './use-partner-store';
@@ -12,7 +12,7 @@ export function PartnerScreen() {
   const connection = usePartnerStore(state => state.connection);
   const name = usePartnerStore(state => state.partnerName);
   if (connection === 'none' || connection === 'disconnected') {
-    return <Screen scroll><View style={styles.stack}><ScreenHeader title="Partner" onBack={() => router.back()} /><PartnerHero description="Cho người bạn tin tưởng xem một phần hành trình của bạn để họ có thể hỗ trợ đúng lúc hơn." title="Đồng hành cùng nhau" /><AppText color="secondary">Bạn luôn kiểm soát dữ liệu được chia sẻ.</AppText><PrivacyBenefitList /><Button label="Mời Partner" onPress={() => router.push('/partner/invite')} /><InlineActionLink label="Quyền riêng tư & chia sẻ" onPress={() => router.push('/settings/privacy')} /></View></Screen>;
+    return <Screen scroll><View style={styles.stack}><ScreenHeader title="Partner" onBack={() => router.back()} /><PartnerHero description="Cho người bạn tin tưởng xem một phần hành trình của bạn để họ có thể hỗ trợ đúng lúc hơn." title="Đồng hành cùng nhau" /><AppText color="secondary">Bạn luôn kiểm soát dữ liệu được chia sẻ.</AppText><PrivacyBenefitList /><Button label="Mời Partner" onPress={() => router.push('/partner/invite')} /><TextAction label="Quyền riêng tư & chia sẻ" onPress={() => router.push('/settings/privacy')} /></View></Screen>;
   }
   if (connection === 'invited') return <PartnerInvitePendingScreen />;
   return <Screen scroll padded={false}><View style={styles.accountStack}><ScreenHeader title="Partner" onBack={() => router.back()} /><SettingsListSection title="KẾT NỐI"><ConnectionRow name={name} onPress={() => router.push('/partner/connection')} /></SettingsListSection><SettingsListSection title="ĐANG CHIA SẺ"><SettingsListRow label="Giai đoạn hiện tại" description="Đang chia sẻ" onPress={() => router.push('/partner/sharing')} /><SettingsListRow label="Kỳ kinh dự kiến" description="Đang chia sẻ" onPress={() => router.push('/partner/sharing')} /><SettingsListRow label="Gợi ý hỗ trợ" description="Đang chia sẻ" onPress={() => router.push('/partner/sharing')} /></SettingsListSection><SettingsListSection title="LUÔN RIÊNG TƯ"><PrivacyLockedRow description="Không chia sẻ" label="Nhật ký" /><PrivacyLockedRow description="Không chia sẻ" label="Dovie chat" /></SettingsListSection></View></Screen>;
@@ -26,7 +26,7 @@ export function PartnerInviteScreen() {
 
 export function PartnerInvitePendingScreen() {
   const setConnection = usePartnerStore(state => state.setConnection); const name = usePartnerStore(state => state.partnerName);
-  return <Screen scroll><View style={styles.stack}><ScreenHeader title="Partner" /><PartnerHero doviePose="care" title="Lời mời đã được gửi" /><View style={styles.status}><AppText variant="label">{name}</AppText><AppText color="secondary">Đang chờ phản hồi</AppText><AppText color="muted" variant="label">Gửi lúc 4 tháng 9 · 21:30</AppText></View><Button label="Gửi lại lời mời" variant="outline" onPress={() => {}} /><InlineActionLink label="Hủy lời mời" onPress={() => setConnection('none')} /><Button label="Mock: chấp nhận lời mời" onPress={() => setConnection('connected')} /></View></Screen>;
+  return <Screen scroll><View style={styles.stack}><ScreenHeader title="Partner" /><PartnerHero doviePose="care" title="Lời mời đã được gửi" /><View style={styles.status}><AppText variant="label">{name}</AppText><AppText color="secondary">Đang chờ phản hồi</AppText><AppText color="muted" variant="label">Gửi lúc 4 tháng 9 · 21:30</AppText></View><Button label="Gửi lại lời mời" variant="outline" onPress={() => {}} /><TextAction label="Hủy lời mời" tone="danger" onPress={() => setConnection('none')} /><Button label="Mock: chấp nhận lời mời" onPress={() => setConnection('connected')} /></View></Screen>;
 }
 
 export function PartnerSharingScreen() {

@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { DovieAvatar, type DovieAvatarVariant } from '@/components/brand';
-import { AppText, Button, Card, InlineActionLink } from '@/components/ui';
+import { AppText, Button, Card } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
 
 export function SuggestionBasisLabel({ label }: { label: string }) {
@@ -34,11 +34,10 @@ export function SuggestionReasonCard({ title, reason }: { title: string; reason:
 }
 export function SelfCareSuggestionCard({ title, description, actionLabel, onPress }: { title: string; description: string; actionLabel?: string; onPress?: () => void }) {
   return (
-    <Card accessibilityLabel={actionLabel} onPress={onPress}>
+    <Card accessibilityLabel={actionLabel ?? title} onPress={onPress}>
       <View style={styles.stack}>
         <AppText variant="headingMd">{title}</AppText>
         <AppText color="secondary">{description}</AppText>
-        {actionLabel && onPress ? <InlineActionLink label={actionLabel} /> : null}
       </View>
     </Card>
   );

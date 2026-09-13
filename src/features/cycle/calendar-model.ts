@@ -15,11 +15,11 @@ export function dateFromKey(value: string) {
 
 export function formatCalendarDate(value: string) {
   const date = dateFromKey(value) ?? new Date();
-  return new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
 }
 
 export function formatMonth(value: Date) {
-  return new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }).format(value);
+  return new Intl.DateTimeFormat('vi-VN', { month: 'long', year: 'numeric' }).format(value);
 }
 
 export function addMonths(value: Date, amount: number) {

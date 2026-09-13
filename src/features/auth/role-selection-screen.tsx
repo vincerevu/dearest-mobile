@@ -1,9 +1,10 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useRouter } from 'expo-router';
-import { Pressable, StyleSheet, View } from 'react-native';
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Screen, ScreenHeader } from '@/components/layout';
-import { AppText, Card } from '@/components/ui';
-import { spacing } from '@/design-system/tokens';
+import { AppText, Button, SelectionRow } from '@/components/ui';
+import { colors, spacing } from '@/design-system/tokens';
 
 type Role = 'partner' | 'user';
 const options: { role: Role; title: string; description: string }[] = [
@@ -13,9 +14,35 @@ const options: { role: Role; title: string; description: string }[] = [
 
 export function RoleSelectionScreen() {
   const router = useRouter();
-  return <Screen scroll><View style={styles.stack}><ScreenHeader title="Bạn đến với Dearest với vai trò nào?" onBack={() => router.back()} /><AppText color="secondary">Bạn có thể thay đổi lựa chọn này sau trong phần cài đặt.</AppText><View style={styles.options}>{options.map(option => <RoleCard key={option.role} {...option} onPress={() => router.replace({ pathname: '/onboarding', params: { role: option.role } })} />)}</View></View></Screen>;
+  const [selectedRole, setSelectedRole] = React.useState<Role>('user');
+
+  return (
+    <Screen scroll>
+      <View style={styles.stack}>
+        <ScreenHeader title="" onBack={() => router.back()} />
+        <View style={styles.intro}>
+          <AppText variant="headingLg">
+            Bạn đến với Dearest
+            {'\n'}
+            với vai trò nào?
+          </AppText>
+          <AppText color="secondary">Bạn có thể thay đổi lựa chọn này sau.</AppText>
+        </View>
+        <View accessibilityRole="radiogroup" style={styles.options}>
+          {options.map(option => (
+            <SelectionRow
+              key={option.role}
+              description={option.description}
+              leading={<MaterialCommunityIcons color={colors.navigation.icon} name={option.role === 'user' ? 'account-outline' : 'account-heart-outline'} size={24} />}
+              selected={selectedRole === option.role}
+              title={option.title}
+              onPress={() => setSelectedRole(option.role)}
+            />
+          ))}
+        </View>
+        <Button label="Tiếp tục" onPress={() => router.replace({ pathname: '/onboarding', params: { role: selectedRole } })} />
+      </View>
+    </Screen>
+  );
 }
-
-function RoleCard({ description, onPress, role, title }: { description: string; onPress: () => void; role: Role; title: string }) { return <Pressable accessibilityLabel={title} accessibilityRole="button" onPress={onPress}><Card variant={role === 'user' ? 'soft' : 'default'}><View style={styles.option}><View style={styles.icon}><MaterialCommunityIcons color={role === 'user' ? '#F2506E' : '#6485A0'} name={role === 'user' ? 'human-female' : 'human-male'} size={42} /></View><View style={styles.copy}><AppText variant="headingMd">{title}</AppText><AppText color="secondary">{description}</AppText></View></View></Card></Pressable>; }
-
-const styles = StyleSheet.create({ copy: { flex: 1, gap: spacing.xs }, icon: { alignItems: 'center', justifyContent: 'center', minWidth: 52 }, option: { alignItems: 'center', flexDirection: 'row', gap: spacing.md }, options: { gap: spacing.md }, stack: { gap: spacing.lg } });
+const styles = StyleSheet.create({ intro: { gap: spacing.sm }, options: { gap: 0 }, stack: { gap: spacing.xl } });

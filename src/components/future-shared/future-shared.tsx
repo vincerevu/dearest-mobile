@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { AppText, Badge, Button, Card, IconButton, ProgressBar, SelectableCard } from '@/components/ui';
+import { AppText, Badge, Button, Card, IconButton, ProgressBar, SelectionRow } from '@/components/ui';
 import { colors, radius, spacing } from '@/design-system/tokens';
 
 export type LifeStage = 'cycle' | 'ttc' | 'pregnancy' | 'postpartum' | 'motherhood';
@@ -15,7 +15,7 @@ const sourceCopy: Record<ContextSource, string> = { user_reported: 'Do bạn ghi
 const permissionCopy: Record<PermissionState, string> = { shared: 'Đang chia sẻ', not_shared: 'Không chia sẻ', paused: 'Đã tạm dừng', revoked: 'Đã thu hồi', pending: 'Đang chờ' };
 
 export function LifeStageBadge({ compact = false, label, stage }: { stage: LifeStage; label?: string; compact?: boolean }) { return <View style={[styles.stage, styles[stage], compact && styles.compact]}><AppText color="body" variant="label">{label ?? stageCopy[stage]}</AppText></View>; }
-export function LifeStageCard({ description, disabled = false, illustration: _illustration, onPress, selected = false, stage, title }: { stage: LifeStage; title: string; description: string; illustration?: ImageSourcePropType; selected?: boolean; disabled?: boolean; onPress?: () => void }) { return <SelectableCard accessibilityLabel={title} description={description} disabled={disabled} illustration={<LifeStageBadge compact stage={stage} />} label={title} selected={selected} onPress={onPress} />; }
+export function LifeStageCard({ description, disabled = false, illustration: _illustration, onPress, selected = false, stage, title }: { stage: LifeStage; title: string; description: string; illustration?: ImageSourcePropType; selected?: boolean; disabled?: boolean; onPress?: () => void }) { return <SelectionRow description={description} disabled={disabled} leading={<LifeStageBadge compact stage={stage} />} selected={selected} title={title} onPress={onPress ?? (() => {})} />; }
 export function ModeHeroCard({ actionLabel, description, eyebrow, illustration: _illustration, mascotVariant: _mascotVariant, onAction, title }: { eyebrow?: string; title: string; description?: string; mascotVariant?: string; illustration?: ImageSourcePropType; actionLabel?: string; onAction?: () => void }) {
   return (
     <Card variant="soft">

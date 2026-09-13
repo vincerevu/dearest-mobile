@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { DovieMicro } from '@/components/brand';
 import { Screen, ScreenHeader } from '@/components/layout';
-import { AppText, EmptyState, IconButton, InlineActionLink } from '@/components/ui';
+import { AppText, EmptyState, TextAction } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
 import { todayKey, useCoreStore } from '@/features/core/use-core-store';
 import { usePreferencesStore } from '@/features/management/use-preferences-store';
@@ -24,11 +24,11 @@ export function CalendarScreen({ title = 'Lịch' }: { title?: string }) {
   const selectedCheckIn = checkIns[selectedDate];
   const cycleDay = getCycleDayForDate(cycle, selectedDate);
   return <Screen scroll><View style={styles.stack}>
-    <ScreenHeader title={title} trailing={<IconButton accessibilityLabel="Ghi nhận hôm nay" icon={<AppText>+</AppText>} onPress={() => router.push(`/check-in/${todayKey()}`)} />} />
+    <ScreenHeader title={title} trailing={<TextAction label="Ghi nhận" onPress={() => router.push(`/check-in/${todayKey()}`)} />} />
     <MonthNavigator label={formatMonth(month)} onNext={() => setMonth(value => addMonths(value, 1))} onPrevious={() => setMonth(value => addMonths(value, -1))} />
     <CycleCalendar days={buildCalendarCells(month, cycle, checkIns, selectedDate, showPredictions)} onSelectDay={cell => setSelectedDate(cell.dateKey)} />
     <CalendarLegend />
-    <View accessibilityLabel={selectedCheckIn ? 'Chỉnh sửa check-in' : 'Ghi nhận ngày này'} style={styles.summary}><AppText color="brand" variant="label">{formatCalendarDate(selectedDate)}</AppText><AppText variant="headingMd">{cycleDay ? `Ngày ${cycleDay} của chu kỳ` : 'Ngoài dữ liệu chu kỳ'}</AppText>{selectedCheckIn ? <><AppText>🙂 {moodLabel(selectedCheckIn.mood)}</AppText><AppText>⚡ Năng lượng {energyLabel(selectedCheckIn.energy)}</AppText>{selectedCheckIn.symptoms.length ? <AppText color="secondary">○ {selectedCheckIn.symptoms.join(', ')}</AppText> : null}</> : <><AppText color="secondary">Chưa có check-in cho ngày này.</AppText></>}<InlineActionLink label={selectedCheckIn ? 'Xem check-in' : 'Ghi nhận ngày này'} onPress={() => router.push(`/check-in/${selectedDate}`)} /></View>
+    <View accessibilityLabel={selectedCheckIn ? 'Chỉnh sửa check-in' : 'Ghi nhận ngày này'} style={styles.summary}><AppText color="muted" variant="label">{formatCalendarDate(selectedDate)}</AppText><AppText variant="headingMd">{cycleDay ? `Ngày ${cycleDay} của chu kỳ` : 'Ngoài dữ liệu chu kỳ'}</AppText>{selectedCheckIn ? <><AppText>🙂 {moodLabel(selectedCheckIn.mood)}</AppText><AppText>⚡ Năng lượng {energyLabel(selectedCheckIn.energy)}</AppText>{selectedCheckIn.symptoms.length ? <AppText color="secondary">○ {selectedCheckIn.symptoms.join(', ')}</AppText> : null}</> : <AppText color="secondary">Chưa có check-in cho ngày này.</AppText>}<TextAction label={selectedCheckIn ? 'Xem check-in' : 'Ghi nhận ngày này'} onPress={() => router.push(`/check-in/${selectedDate}`)} /></View>
   </View></Screen>;
 }
 

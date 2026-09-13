@@ -11,10 +11,12 @@ type SettingsListRowProps = {
   onPress?: () => void;
   trailing?: ReactNode;
   tone?: 'default' | 'danger';
+  chevronTone?: 'neutral' | 'brand' | 'danger';
 };
 
 /** A light-weight settings row. It is only interactive when an action is supplied. */
-export function SettingsListRow({ description, label, onPress, tone = 'default', trailing }: SettingsListRowProps) {
+export function SettingsListRow({ chevronTone = 'neutral', description, label, onPress, tone = 'default', trailing }: SettingsListRowProps) {
+  const chevronColor = chevronTone === 'danger' ? colors.danger : chevronTone === 'brand' ? colors.brand.primary : colors.navigation.chevron;
   const content = (
     <>
       <View style={styles.copy}>
@@ -22,7 +24,7 @@ export function SettingsListRow({ description, label, onPress, tone = 'default',
         {description ? <AppText color="secondary" variant="label">{description}</AppText> : null}
       </View>
       {trailing}
-      {onPress ? <MaterialCommunityIcons color={tone === 'danger' ? colors.danger : colors.brand.primary} name="chevron-right" size={22} /> : null}
+      {onPress ? <MaterialCommunityIcons color={chevronColor} name="chevron-right" size={22} /> : null}
     </>
   );
   if (onPress)

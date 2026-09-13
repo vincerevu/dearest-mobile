@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { Dovie, DovieMicro } from '@/components/brand';
 import { Screen, ScreenHeader, SectionHeader } from '@/components/layout';
-import { AppText, Card, EmptyState, InlineActionLink } from '@/components/ui';
+import { AppText, Card, DisclosureRow, EmptyState } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
 import { todayKey, useCoreStore } from '@/features/core/use-core-store';
 
@@ -20,7 +20,7 @@ export function InsightsScreen() {
       <Dovie decorative pose="thinking" size={140} />
       <AppText variant="headingMd">Từ những điều cậu đã ghi nhận</AppText>
       <AppText color="secondary">Đây là quan sát ban đầu, không phải kết luận y khoa.</AppText>
-      <Card accessibilityLabel="Xem dữ liệu dùng cho insight" variant="soft" onPress={() => router.push('/insights/check-in-pattern')}><View style={styles.card}><AppText variant="headingMd">Nhịp check-in của cậu</AppText><AppText color="secondary">Dovie đang dựa trên {checkIns.length} check-in do cậu tự ghi nhận.</AppText><InlineActionLink label="Xem dữ liệu" /></View></Card>
+      <DisclosureRow description={`Dovie đang dựa trên ${checkIns.length} check-in do cậu tự ghi nhận.`} title="Nhịp check-in của cậu" onPress={() => router.push('/insights/check-in-pattern')} />
     </> : <EmptyState actionLabel="Check-in hôm nay" description={`Cần ít nhất ${MIN_CHECK_INS} check-in để Dovie đưa ra một quan sát có cơ sở. Cứ ghi nhận theo nhịp của cậu nhé.`} icon={<DovieMicro decorative size={96} state="empty" />} onAction={() => router.push(`/check-in/${todayKey()}`)} title="Chưa đủ dữ liệu" />}
   </View></Screen>;
 }

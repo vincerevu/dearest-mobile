@@ -3,7 +3,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DovieAvatar } from '@/components/brand';
 import { Screen } from '@/components/layout';
-import { AppText, Card, InlineActionLink, SettingsListRow, SettingsListSection } from '@/components/ui';
+import { AppText, DisclosureRow, SettingsListRow, SettingsListSection } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
 import { ConnectionRow, PartnerKnowledgeCard, PartnerPrivateState, PartnerSupportHintCard, PartnerTaskRow, SharedContextCard, WorkspaceSwitcher } from './components';
 import { buildPartnerSnapshot } from './domain/partner-shared-snapshot';
@@ -16,7 +16,7 @@ export function PartnerTodayScreen() {
 
 export function PartnerSupportWorkspaceScreen() {
   const router = useRouter(); const [done, setDone] = React.useState<string[]>([]); const tasks = [{ id: 'ask', title: 'Hỏi An cần gì', description: 'Một câu hỏi nhẹ nhàng.' }, { id: 'meal', title: 'Chuẩn bị một bữa nhẹ', description: 'Một việc nhỏ, dễ bắt đầu.' }, { id: 'rest', title: 'Cho An thêm thời gian nghỉ', description: 'Chủ động lo một việc hôm nay.' }];
-  return <Screen scroll><View style={styles.stack}><WorkspaceTitle title="Hỗ trợ An" /><SectionLabel label="HÔM NAY" /><PartnerSupportHintCard description="Chủ động nhận giúp An một việc thường ngày." title="Một điều nhỏ" onPress={() => router.push('/partner-support/small-help')} /><SectionLabel label="GỢI Ý KHÁC" />{tasks.map(task => <PartnerTaskRow key={task.id} {...task} completed={done.includes(task.id)} onToggle={() => setDone(value => value.includes(task.id) ? value.filter(id => id !== task.id) : [...value, task.id])} />)}<SectionLabel label="HIỂU AN HƠN" />{['PMS là gì?', 'Vì sao năng lượng thay đổi?', 'Đau bụng kinh xảy ra vì sao?'].map(title => <PartnerKnowledgeCard key={title} title={title} onPress={() => router.push('/partner-support/knowledge/cycle')} />)}<Card accessibilityLabel="Hỏi Dovie" variant="soft" onPress={() => router.push('/partner-support/ask-dovie')}><View style={styles.dovieEntry}><DovieAvatar decorative size={44} variant="listening" /><View style={styles.flex}><AppText variant="label">Không biết nên làm gì?</AppText><AppText color="secondary" variant="label">Dovie có thể gợi ý dựa trên những gì An đã cho phép chia sẻ.</AppText><InlineActionLink label="Hỏi Dovie" /></View></View></Card></View></Screen>;
+  return <Screen scroll><View style={styles.stack}><WorkspaceTitle title="Hỗ trợ An" /><SectionLabel label="HÔM NAY" /><PartnerSupportHintCard description="Chủ động nhận giúp An một việc thường ngày." title="Một điều nhỏ" onPress={() => router.push('/partner-support/small-help')} /><SectionLabel label="GỢI Ý KHÁC" />{tasks.map(task => <PartnerTaskRow key={task.id} {...task} completed={done.includes(task.id)} onToggle={() => setDone(value => value.includes(task.id) ? value.filter(id => id !== task.id) : [...value, task.id])} />)}<SectionLabel label="HIỂU AN HƠN" />{['PMS là gì?', 'Vì sao năng lượng thay đổi?', 'Đau bụng kinh xảy ra vì sao?'].map(title => <PartnerKnowledgeCard key={title} title={title} onPress={() => router.push('/partner-support/knowledge/cycle')} />)}<DisclosureRow description="Dovie có thể gợi ý dựa trên những gì An đã cho phép chia sẻ." leading={<DovieAvatar decorative size={44} variant="listening" />} title="Không biết nên làm gì?" onPress={() => router.push('/partner-support/ask-dovie')} /></View></Screen>;
 }
 
 export function PartnerMeScreen() {
@@ -27,4 +27,4 @@ export function PartnerMeScreen() {
 function WorkspaceTitle({ title }: { title: string }) { return <AppText variant="headingLg">{title}</AppText>; }
 function SectionLabel({ label }: { label: string }) { return <AppText color="muted" style={styles.sectionLabel} variant="label">{label}</AppText>; }
 
-const styles = StyleSheet.create({ dovieEntry: { alignItems: 'flex-start', flexDirection: 'row', gap: spacing.md }, flex: { flex: 1, gap: spacing.xs }, initial: { alignItems: 'center', backgroundColor: '#F2506E', borderRadius: 22, height: 44, justifyContent: 'center', width: 44 }, meHeader: { gap: spacing.lg }, meStack: { gap: spacing.xl }, owner: { gap: spacing.xs }, person: { alignItems: 'center', flexDirection: 'row', gap: spacing.md }, sectionLabel: { fontSize: 12, letterSpacing: 0.6 }, stack: { gap: spacing.lg } });
+const styles = StyleSheet.create({ initial: { alignItems: 'center', backgroundColor: '#F2506E', borderRadius: 22, height: 44, justifyContent: 'center', width: 44 }, meHeader: { gap: spacing.lg }, meStack: { gap: spacing.xl }, owner: { gap: spacing.xs }, person: { alignItems: 'center', flexDirection: 'row', gap: spacing.md }, sectionLabel: { fontSize: 12, letterSpacing: 0.6 }, stack: { gap: spacing.lg } });

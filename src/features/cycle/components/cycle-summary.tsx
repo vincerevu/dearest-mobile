@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { AppText, Button, Card, SelectableCard } from '@/components/ui';
+import { AppText, Button, Card, SelectionRow } from '@/components/ui';
 import { spacing } from '@/design-system/tokens';
 
 export function CalendarWeekHeader() {
@@ -28,7 +28,7 @@ export function MonthlyReportPreviewCard({ label, onPress }: { label: string; on
     </Card>
   );
 }
-export function CycleSettingCard({ description, label, selected = false, onPress }: { label: string; description?: string; selected?: boolean; onPress: () => void }) { return <SelectableCard description={description} label={label} selected={selected} onPress={onPress} />; }
+export function CycleSettingCard({ description, label, selected = false, onPress }: { label: string; description?: string; selected?: boolean; onPress: () => void }) { return <SelectionRow description={description} selected={selected} title={label} onPress={onPress} />; }
 export function CycleRegularitySelector({ value, onChange }: { value: 'regular' | 'irregular'; onChange: (value: 'regular' | 'irregular') => void }) { return <View style={styles.choices}><CycleSettingCard label="Chu kỳ đều" selected={value === 'regular'} onPress={() => onChange('regular')} /><CycleSettingCard label="Chu kỳ không đều" selected={value === 'irregular'} onPress={() => onChange('irregular')} /></View>; }
 export function CycleStatsRow({ children }: { children: React.ReactNode }) { return <View style={styles.stats}>{children}</View>; }
 const styles = StyleSheet.create({ choices: { gap: spacing.sm }, countdown: { alignItems: 'center', gap: spacing.xs }, day: { flex: 1 }, report: { gap: spacing.md }, stats: { flexDirection: 'row', gap: spacing.md }, week: { flexDirection: 'row', paddingHorizontal: spacing.sm } });

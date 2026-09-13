@@ -28,6 +28,7 @@ export * from './image';
 export * from './inline-action-link';
 export * from './input';
 export { Input as TextField } from './input';
+export * from './interaction-row';
 export * from './list';
 export * from './loading-overlay';
 export * from './modal';
